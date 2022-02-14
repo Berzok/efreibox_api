@@ -42,6 +42,10 @@ class LoginController extends AbstractController {
         $token = '$2y$' . array_pop($fullToken);
         $id = array_pop($fullToken);
 
+        if(!$id){
+            return new Response('ok', Response::HTTP_OK);
+        }
+
         $user = $repository->find($id);
         if (password_verify($user->getUsername(), $token)) {
             $data = [
